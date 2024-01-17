@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.user888mk.web_application.mapper.ClubMapper.mapClubDtoToClub;
+import static com.user888mk.web_application.mapper.ClubMapper.mapClubToClubDto;
+
 @Service
 public class ClubServiceImpl implements ClubService {
 
@@ -24,18 +27,18 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> findAllClubs() {
         List<Club> allClubs = clubRepository.findAll();
-        return allClubs.stream().map(club -> mapToDto(club)).collect(Collectors.toList());
+        return allClubs.stream().map(club -> mapClubToClubDto(club)).collect(Collectors.toList());
     }
 
     @Override
     public ClubDto findClubById(long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("Not found club with id"));
-        return mapToDto(club);
+        return mapClubToClubDto(club);
     }
 
     @Override
     public void updateClub(ClubDto clubDto) {
-        Club club = mapToClub(clubDto);
+        Club club = mapClubDtoToClub(clubDto);
         clubRepository.save(club);
     }
 
@@ -47,39 +50,14 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> searchClubs(String query) {
         List<Club> clubs = clubRepository.searchClubs(query);
-        return clubs.stream().map(club -> mapToDto(club)).collect(Collectors.toList());
-    }
-    private Club mapToClub(ClubDto clubDto) {
-        Club club = Club
-                .builder()
-                .id(clubDto.getId())
-                .title(clubDto.getTitle())
-                .photoUrl(clubDto.getPhotoUrl())
-                .content(clubDto.getContent())
-                .createdOn(clubDto.getCreatedOn())
-                .updatedOn(clubDto.getUpdatedOn())
-                .build();
-        return club;
+        return clubs.stream().map(club -> mapClubToClubDto(club)).collect(Collectors.toList());
     }
 
     @Override
     public Club saveClub(ClubDto clubDto) {
-        Club club = mapToClub(clubDto);
+        Club club = mapClubDtoToClub(clubDto);
         return clubRepository.save(club);
     }
 
-    private ClubDto mapToDto(Club club) {
 
-        ClubDto clubDto = ClubDto.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .photoUrl(club.getPhotoUrl())
-                .content(club.getContent())
-                .createdOn(club.getCreatedOn())
-                .updatedOn(club.getUpdatedOn())
-
-                .build();
-
-        return clubDto;
-    }
 }
