@@ -13,16 +13,20 @@
     <!-- Page Content-->
     <section layout:fragment="body" class="py-5">
         <div class="container px-5 my-5">
+            <div th:if="${param.success}" class="alert alert-success">
+                You are registered successfully!
+            </div>
             <div class="text-center mb-5">
                 <h1 class="fw-bolder">Runners Near You</h1>
                 <p class="lead fw-normal text-muted mb-0">Runners found</p>
             </div>
             <div class="row gx-5">
                 <!--search bar-->
-                <div >
-                   <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb-3 ">
-                       <input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Search running" aria-label="Search">
-                   </form>
+                <div>
+                    <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb-3 ">
+                        <input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Search running"
+                               aria-label="Search">
+                    </form>
                 </div>
                 <div th:each="club :${clubs}" class="col-lg-6 mt-2">
                     <div class="position-relative mb-3">
@@ -37,6 +41,5 @@
         </div>
     </section>
 </main>
-
 </body>
 </html>
