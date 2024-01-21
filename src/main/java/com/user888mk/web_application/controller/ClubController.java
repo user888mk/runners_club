@@ -84,7 +84,7 @@ public class ClubController {
             user = userService.findByUsername(username);
             model.addAttribute("user", user);
         }
-        model.addAttribute("user", user);
+       model.addAttribute("user", user);
         model.addAttribute("club", clubDto);
         return "clubs-detail";
     }
