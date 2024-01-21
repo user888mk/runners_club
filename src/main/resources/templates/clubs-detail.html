@@ -28,8 +28,11 @@
                         <div class="small text-muted" th:text="${club.createdOn}"></div>
                         <h2 class="card-title">About this running club</h2>
                         <p class="card-text" th:text="${club.content}"></p>
-                        <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
-                        <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Create event</a>
+                        <div th:if="${user.id} == ${club.createdBy.id}">
+                            <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
+                            <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Create
+                                event</a>
+                        </div>
                     </div>
                 </div>
                 <!-- Nested row for non-featured blog posts-->
@@ -43,7 +46,8 @@
                                 <h2 th:text="${event.name}" class="card-title h4"></h2>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                     Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">Event more →</a>
+                                <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">Event
+                                    more →</a>
                             </div>
                         </div>
                     </div>
