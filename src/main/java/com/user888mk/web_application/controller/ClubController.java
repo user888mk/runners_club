@@ -22,6 +22,10 @@ public class ClubController {
     private final ClubService clubService;
     private final UserService userService;
 
+    @GetMapping("/")
+    public String listClubs() {
+        return "welcome";
+    }
     @GetMapping("/clubs")
     public String listClubs(Model model) {
         UserEntity user = new UserEntity();
